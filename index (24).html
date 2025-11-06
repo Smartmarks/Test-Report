@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Test Review</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        .tab-btn {
+            transition: all 0.3s ease;
+        }
+        .tab-btn.active {
+            border-bottom-color: #3b82f6;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        .question-card-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+        .question-card.open .question-card-content {
+            max-height: 1000px;
+            transition: max-height 0.7s ease-in;
+        }
+        .question-card.open .chevron {
+            transform: rotate(180deg);
+        }
+        .chevron {
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Chosen Palette: Warm Neutrals (Beige/Gray) with Muted Accents (Green/Red/Orange) -->
+    <!-- Application Structure Plan: A dashboard + tabbed interface. The dashboard gives an instant summary (score chart, overall remarks). The tabs break the detailed review into sections (A, B, C, D). Each question is an expandable card, moving from summary (marks) to detail (feedback, correct answer) on user click. This is better than a linear doc as it allows focused, non-linear exploration of feedback. -->
+    <!-- Visualization & Content Choices:
+        - Total Score: Report (9/25) -> Goal (Inform) -> Viz (Donut Chart) -> Interaction (Hover) -> Justification (Visual summary) -> Library (Chart.js).
+        - Section Nav: Report (Sections A-D) -> Goal (Organize) -> Viz (Tabs) -> Interaction (Click) -> Justification (Chunking content) -> Library (JS).
+        - Questions: Report (Q-by-Q feedback) -> Goal (Inform/Organize) -> Viz (Expandable Cards) -> Interaction (Click) -> Justification (Progressive disclosure, summary-to-detail) -> Library (JS).
+        - Key Areas: Report (Numbered list) -> Goal (Inform) -> Viz (Styled list w/ icons) -> Interaction (None) -> Justification (Engaging presentation) -> Library (HTML/Tailwind).
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+
+        <header class="mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">Physics Test Review</h1>
+            <p class="text-lg text-gray-600">Student: [Student's Name]</p>
+        </header>
+
+        <main>
+            <section id="dashboard" class="mb-10 p-6 bg-white rounded-lg shadow-md">
+                <h2 class="text-2xl font-semibold mb-6 text-gray-900">Summary Dashboard</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                    <div class="lg:col-span-1 flex flex-col items-center justify-center">
+                        <p class="text-lg font-semibold text-gray-700 mb-2">Total Score</p>
+                        <div class="chart-container relative w-full max-w-xs mx-auto h-64 md:h-72">
+                            <canvas id="scoreChart"></canvas>
+                        </div>
+                        <p id="score-text" class="text-3xl font-bold text-gray-800 mt-4">11 / 25</p>
+                    </div>
+
+                    <div class="lg:col-span-2">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Overall Teacher's Remarks</h3>
+                        <div class="space-y-4 text-gray-700">
+                            <p>This is a good first attempt at a challenging paper. I can see you have a good grasp of some key formulas, especially in gravitation (like in Q12), and you're able to set up problems correctly (like in Q7). Your derivation for 'g' at a height 'h' (Q12b) was excellent, and the calculation that followed (Q12c) was perfectly executed. Well done!</p>
+                            <p>However, I've noticed a few key areas where we need to focus our efforts:</p>
+                            <ul class="space-y-3 pl-4">
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-3 mt-1.5">🔍</span>
+                                    <span><strong>Read the Question Carefully:</strong> In several places (like Q2 and Q4), you provided a formula when the question asked for an angle or a definition.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-3 mt-1.5">🎯</span>
+                                    <span><strong>Formula Accuracy:</strong> Be very precise with your formulas. Forgetting a '2' (like in Q6a) or a 'square' (like in Q11) changes the entire problem.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-3 mt-1.5">✍️</span>
+                                    <span><strong>Show Your Calculations:</strong> In Q6b and Q7, you set up the problem correctly but then made an error or didn't finish. Show every step clearly.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-3 mt-1.5">📈</span>
+                                    <span><strong>Derivations:</strong> The derivations (Q9, Q11) need practice. They are about telling a logical story with physics and math.</span>
+                                </li>
+                            </ul>
+                            <p class="font-medium text-blue-600">You've got a good foundation. With some more practice on precision and problem-solving steps, your marks will improve significantly. Don't be discouraged!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="detailed-review" class="p-6 bg-white rounded-lg shadow-md">
+                <h2 class="text-2xl font-semibold mb-5 text-gray-900">Detailed Question-by-Question Review</h2>
+                
+                <nav class="flex border-b-2 border-gray-200 mb-6">
+                    <button class="tab-btn py-3 px-6 text-gray-500 border-b-2 border-transparent" data-target="section-a">Section A</button>
+                    <button class="tab-btn py-3 px-6 text-gray-500 border-b-2 border-transparent" data-target="section-b">Section B</button>
+                    <button class="tab-btn py-3 px-6 text-gray-500 border-b-2 border-transparent" data-target="section-c">Section C</button>
+                    <button class="tab-btn py-3 px-6 text-gray-500 border-b-2 border-transparent" data-target="section-d">Section D</button>
+                </nav>
+
+                <div id="tab-content" class="space-y-4">
+                    
+                    <div id="section-a" class="tab-pane">
+                        <p class="mb-4 text-gray-600">This section covers very short answer questions. Click on any question to see your answer and the teacher's feedback.</p>
+                        
+                        <!-- Q1 -->
+                        <div class="question-card border border-gray-200 rounded-lg">
+                            <div class="question-card-header cursor-pointer p-4 bg-gray-50 rounded-t-lg flex justify-between items-center">
+                                <span class="font-semibold text-gray-800">1. Horizontal range of a projectile</span>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-sm font-bold text-green-600 bg-green-100 px-3 py-1 rounded-full">1 / 1</span>
+                                    <span class="chevron text-gray-400">▼</span>
+                                </div>
+                            </div>
+                            <div class="question-card-content p-4 border-t border-gray-200">
+                                <h4 class="font-semibold text-gray-700">Question:</h4>
+                                <p class="mb-3 text-gray-600">Write the expression for the horizontal range of a projectile in terms of its velocity and angle of projection.</p>
+                                <h4 class="font-semibold text-gray-700">Your Answer:</h4>
+                                <p class="mb-3 text-gray-600 font-mono">R = 2Vsin(theta)Vcos(theta) / g</p>
+                                <h4 class="font-semibold text-green-700">Remark:</h4>
+                                <p class="text-green-600"><strong>Excellent.</strong> This is a correct expression, derived well from fundamental components.</p>
+                            </div>
+                        </div>
+
+                        <!-- Q2 -->
+                        <div class="question-card border border-gray-200 rounded-lg">
+                            <div class="question-card-header cursor-pointer p-4 bg-gray-50 rounded-t-lg flex justify-between items-center">
+                                <span class="font-semibold text-gray-800">2. Angle in uniform circular motion</span>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-sm font-bold text-red-600 bg-red-100 px-3 py-1 rounded-full">0 / 1</span>
+                                    <span class="chevron text-gray-400">▼</span>
+                                </div>
+                            </div>
+                            <div class="question-card-content p-4 border-t border-gray-200">
+                                <h4 class="font-semibold text-gray-700">Question:</h4>
+                                <p class="mb-3 text-gray-600">What is the angle between the velocity and acceleration vectors in uniform circular motion?</p>
+                                <h4 class="font-semibold text-gray-700">Your Answer:</h4>
+                                <p class="mb-3 text-gray-600 font-mono">a = V^2/r</p>
+                                <h4 class="font-semibold text-red-700">Remark:</h4>
+                                <p class="text-red-600">The question asked for the <strong>angle</strong> between velocity and acceleration, not the formula for acceleration. The correct answer is 90°.</p>
+                            </div>
+                        </div>
+
+                        <!-- Q3 -->
+                        <div class="question-card border border-gray-200 rounded-lg">
+                            <div class="question-card-header cursor-pointer p-4 bg-gray-50 rounded-t-lg flex justify-between items-center">
+                                <span class="font-semibold text-gray-800">3. Kepler's third law</span>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-sm font-bold text-green-600 bg-green-100 px-3 py-1 rounded-full">1 / 1</span>
+                                    <span class="chevron text-gray-400">▼</span>
+                                </div>
+                            </div>
+                            <div class="question-card-content p-4 border-t border-gray-200">
+                                <h4 class="font-semibold text-gray-700">Question:</h4>
+                                <p class="mb-3 text-gray-600">State Kepler’s third law of planetary motion.</p>
+                                <h4 class="font-semibold text-gray-700">Your Answer:</h4>
+                                <p class="mb-3 text-gray-600 font-mono">T^2 ∝ R^3</p>
+                                <h4 class="font-semibold text-green-700">Remark:</h4>
+                                <p class="text-green-600"><strong>Correct.</strong> The formula is spot on. Your written definition was a bit unclear, but the formula shows you understand the law.</p>
+                            </div>
+                        </div>
+
+                        <!-- Q4 -->
+                        <div class="question-card border border-gray-200 rounded-lg">
+                            <div class="question-card-header cursor-pointer p-4 bg-gray-50 rounded-t-lg flex justify-between items-center">
+                                <span class="font-semibold text-gray-800">4. Define gravitational potential energy</span>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-sm font-bold text-red-600 bg-red-100 px-3 py-1 rounded-full">0 / 1</span>
+                                    <span class="chevron text-gray-400">▼</span>
+                                </div>
+                            </div>
+                            <div class="question-card-content p-4 border-t border-gray-200">
+                                <h4 class="font-semibold text-gray-700">Question:</h4>
+                                <p class="mb-3 text-gray-600">Define gravitational potential energy.</p>
+                                <h4 class="font-semibold text-gray-700">Your Answer:</h4>
+                                <p class="mb-3 text-gray-600 font-mono">GMm/R is called gravitational potential energy.</p>
+                                <h4 class="font-semibold text-red-700">Remark:</h4>
+                                <p class="text-red-600">This is incorrect. The question asked for a <strong>definition</strong> (work done to move a mass from infinity). Also, the formula for G.P.E. is `U = -GMm/r`.</p>
+                            </div>
+                        </div>
+
+                        <!-- Q5 -->
+                        <div class="question-card border border-gray-200 rounded-lg">
+                            <div class="question-card-header cursor-pointer p-4 bg-gray-50 rounded-t-lg flex justify-between items-center">
+                                <span class="font-semibold text-gray-800">5. SI unit of G</span>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-sm font-bold text-green-600 bg-green-100 px-3 py-1 rounded-full">1 / 1</span>
+                                    <span class="chevron text-gray-400">▼</span>
+                                </div>
+                            </div>
+                            <div class="question-card-content p-4 border-t border-gray-200">
+                                <h4 class="font-semibold text-gray-700">Question:</h4>
+                                <p class="mb-3 text-gray-600">Write the SI unit of the gravitational constant (G).</p>
+                                <h4 class="font-semibold text-gray-700">Your Answer:</h4>
+                                <p class="mb-3 text-gray-600 font-mono">Nm^2 kg^-2</p>
+                                <h4 class="font-semibold text-green-700">Remark:</h4>
+                                <p class="text-green-600"><strong>Correct.</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="section-b" class="tab-pane hidden">
+                        <p class="mb-4 text-gray-600">This section covers short answer questions. Click on any question to see your answer and the teacher's feedback.</p>
+
+                        <!-- Q6 -->
+                        <div class="question-card border border-gray-200 rounded-lg">
+                            <div class="question-card-header cursor-pointer p-4 bg-gray-50 rounded-t-lg flex justify-between items-center">
+                                <span class="font-semibold text-gray-800">6. Projectile problem</span>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-sm font-bold text-red-600 bg-red-100 px-3 py-1 rounded-full">0 / 2</span>
+                                    <span class="chevron text-gray-400">▼</span>
+                                </div>
+                            </div>
+                            <div class="question-card-content p-4 border-t border-gray-200">
+                                <h4 class="font-semibold text-gray-700">Question:</h4>
+                                <p class="mb-3 text-gray-600">A projectile is fired with a velocity of 10 m/s at an angle of 30° with the horizontal. Find the time of flight and the maximum height reached. (Take g = 10 m/s2)</p>
+                                <h4 class="font-semibold text-gray-700">Your Answer:</h4>
+                                <p class="mb-3 text-gray-600 font-mono">(a) Time of flight = Usin(theta)/g (Calculation: -sin30)<br>(b) Max height = U^2 sin^2 / 2g (Calculation: 100/20 = 1/5)</p>
+                                <h4 class="font-semibold text-red-700">Remark:</h4>
+                                <p class="text-red-600">(a) The formula for time of flight is incorrect; you missed the '2' (`T = 2Usin(theta)/g`). This led to an incorrect calculation.<br>(b) The formula for max height is correct, but your calculation is wrong. It should be: `H = (10^2 * sin^2(30°)) / (2 * 10) = (100 * (0.5)^2) / 20 = (100 * 0.25) / 20 = 25 / 20 = 1.25 m`.</p>
+                            </div>
+                        </div>
+
+                        <!-- Q7 -->
+                        <div class="question-card border border-gray-200 rounded-lg">
+                            <div class="question-card-header cursor-pointer p-4 bg-gray-50 rounded-t-lg flex justify-between items-center">
+                                <span class="font-semibold text-gray-800">7. Gravitational force</span>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-sm font-bold text-yellow-600 bg-yellow-100 px-3 py-1 rounded-full">1 / 2</span>
+                                    <span class="chevron text-gray-400">▼</span>
+                                </div>
+                            </div>
+                            <div class="question-card-content p-4 border-t border-gray-200">
+                                <h4 class="font-semibold text-gray-700">Question:</h4>
+                                <p class="mb-3 text-gray-600">Two particles of masses 10 kg and 20 kg are separated by a distance of 1 m. Find the gravitational force on each due to the other.</p>
+                                <h4 class="font-semibold text-gray-700">Your Answer:</h4>
+                                <p class="mb-3 text-gray-600 font-mono">F = 6.67 x 10^-11 x 10 x 20 / (1)^2</p>
+                                <h4 class="font-semibold text-yellow-700">Remark:</h4>
+                                <p class="text-yellow-600"><strong>Good start!</strong> The formula and substitution are perfect. You lost a mark because you didn't complete the final calculation. (`F = 1.334 x 10^-9 N`).</p>
+                            </div>
+                        </div>
+
+                        <!-- Q8 -->
+                        <div class="question-card border border-gray-200 rounded-lg">
+                            <div class="question-card-header cursor-pointer p-4 bg-gray-50 rounded-t-lg flex justify-between items-center">
+                                <span class="font-semibold text-gray-800">8. Centripetal acceleration and tension</span>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-sm font-bold text-green-600 bg-green-100 px-3 py-1 rounded-full">2 / 2</span>
+                                    <span class="chevron text-gray-400">▼</span>
+                                </div>
+                            </div>
+                            <div class="question-card-content p-4 border-t border-gray-200">
+                                <h4 class="font-semibold text-gray-700">Question:</h4>
+                                <p class="mb-3 text-gray-600">A stone is tied to a string and whirled in a horizontal circle of radius 2 m at a speed of 4 m/s. Find the centripetal acceleration, and the tension in the string if the mass of the stone is 0.2 kg.</p>
+                                <h4 class="font-semibold text-gray-700">Your Answer:</h4>
+                                <p class="mb-3 text-gray-600 font-mono">correct.</p>
+                                <h4 class="font-semibold text-green-700">Remark:</h4>
+                                <p class="text-green-600">You correctly substituted all values and got the right answer.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="section-c" class="tab-pane hidden">
+                        <p class="mb-4 text-gray-600">This section covers more short answer questions. Click on any question to see your answer and the teacher's feedback.</p>
+
+                        <!-- Q9 -->
+                        <div class="question-card border border-gray-200 rounded-lg">
+                            <div class="question-card-header cursor-pointer p-4 bg-gray-50 rounded-t-lg flex justify-between items-center">
+                                <span class="font-semibold text-gray-800">9. Derive GPE</span>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-sm font-bold text-red-600 bg-red-100 px-3 py-1 rounded-full">0 / 3</span>
+                                    <span class="chevron text-gray-400">▼</span>
+                                </div>
+                            </div>
+                            <div class="question-card-content p-4 border-t border-gray-200">
+                                <h4 class="font-semibold text-gray-700">Question:</h4>
+                                <p class="mb-3 text-gray-600">Derive the expression for the gravitational potential energy of a system of two point masses separated by distance r.</p>
+                                <h4 class="font-semibold text-gray-700">Your Answer:</h4>
+                                <p class="mb-3 text-gray-600 font-mono">F = GM/r ... E = GM/r</p>
+                                <h4 class="font-semibold text-red-700">Remark:</h4>
+                                <p class="text-red-600">This derivation is incorrect. You seem to be confusing gravitational potential energy (U) with gravitational potential (V) and gravitational force (F). This derivation requires using calculus (integration) which we can practice.</p>
+                            </div>
+                        </div>
+
+                        <!-- Q10 -->
+                        <div class="question-card border border-gray-200 rounded-lg">
+                            <div class="question-card-header cursor-pointer p-4 bg-gray-50 rounded-t-lg flex justify-between items-center">
+                                <span class="font-semibold text-gray-800">10. Mass of the Moon</span>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-sm font-bold text-red-600 bg-red-100 px-3 py-1 rounded-full">0.5 / 3</span>
+                                    <span class="chevron text-gray-400">▼</span>
+                                </div>
+                            </div>
+                            <div class="question-card-content p-4 border-t border-gray-200">
+                                <h4 class="font-semibold text-gray-700">Question:</h4>
+                                <p class="mb-3 text-gray-600">The acceleration due to gravity on the surface of the Moon is 1.6 m/s2 and its radius is 1.7 × 10^6 m. Find the mass of the Moon. (Take G = 6.67 × 10^-11 Nm2/kg2)</p>
+                                <h4 class="font-semibold text-gray-700">Your Answer:</h4>
+                                <p class="mb-3 text-gray-600 font-mono">mass = 6.227 x 10^5</p>
+                                <h4 class="font-semibold text-red-700">Remark:</h4>
+                                <p class="text-red-600">You earned half a mark for knowing the base formula `g = GM/R^2`. However, the substitution of values and the final calculation are incorrect. You must be very careful with algebra when rearranging the formula to solve for Mass (M).</p>
+                            </div>
+                        </div>
+
+                        <!-- Q11 -->
+                        <div class="question-card border border-gray-200 rounded-lg">
+                            <div class="question-card-header cursor-pointer p-4 bg-gray-50 rounded-t-lg flex justify-between items-center">
+                                <span class="font-semibold text-gray-800">11. Derive max height and range</span>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-sm font-bold text-yellow-600 bg-yellow-100 px-3 py-1 rounded-full">1 / 3</span>
+                                    <span class="chevron text-gray-400">▼</span>
+                                </div>
+                            </div>
+                            <div class="question-card-content p-4 border-t border-gray-200">
+                                <h4 class="font-semibold text-gray-700">Question:</h4>
+                                <p class="mb-3 text-gray-600">Derive the formula for the maximum height and range of a projectile in terms of initial velocity v0, angle of projection θ0, and acceleration due to gravity g.</p>
+                                <h4 class="font-semibold text-gray-700">Your Answer:</h4>
+                                <p class="mb-3 text-gray-600 font-mono">(Derivations shown)</p>
+                                <h4 class="font-semibold text-yellow-700">Remark:</h4>
+                                <p class="text-yellow-600">You are on the right track by using the equations of motion! However, there were algebraic mistakes. For Height, you missed the `sin^2(theta)`. For Range, you correctly started with `R = V_x * T` but made errors in the substitution.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="section-d" class="tab-pane hidden">
+                        <p class="mb-4 text-gray-600">This section covers the long answer question. Click on the question to see your answer and the teacher's feedback.</p>
+                        
+                        <!-- Q12 -->
+                        <div class="question-card border border-gray-200 rounded-lg">
+                            <div class="question-card-header cursor-pointer p-4 bg-gray-50 rounded-t-lg flex justify-between items-center">
+                                <span class="font-semibold text-gray-800">12. Newton's Law, Coulomb's Law, and g at height h</span>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-sm font-bold text-yellow-600 bg-yellow-100 px-3 py-1 rounded-full">3.5 / 5</span>
+                                    <span class="chevron text-gray-400">▼</span>
+                                </div>
+                            </div>
+                            <div class="question-card-content p-4 border-t border-gray-200">
+                                <h4 class="font-semibold text-gray-700">Question:</h4>
+                                <p class="mb-3 text-gray-600">State Newton’s law of gravitation and discuss how it differs from Coulomb’s law. Derive an expression for the acceleration due to gravity (g) at a height h above the Earth’s surface. If g = 9.8 m/s2 on the surface and Re = 6.4 × 10^6 m, find g at a height of 640 km.</p>
+                                <h4 class="font-semibold text-gray-700">Your Answer:</h4>
+                                <p class="mb-3 text-gray-600 font-mono">(a) F = G m1 m2 / R^2<br>(b) Derivation g' = g * (R / (R+h))^2<br>(c) g' = 8.098</p>
+                                <h4 class="font-semibold text-yellow-700">Remark:</h4>
+                                <ul class="list-disc pl-5 space-y-2 text-yellow-600">
+                                    <li>(a) You stated Newton's law (0.5 marks) but did not include the comparison to Coulomb's law as requested.</li>
+                                    <li>(b) <strong>Excellent derivation!</strong> This was clear, logical, and perfectly correct. (2 marks)</li>
+                                    <li>(c) <strong>Perfect calculation.</strong> You correctly substituted all values (including converting km to m) and got the right answer. (1 mark)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const totalMarks = 25;
+            const marksScored = 11;
+            const marksMissed = totalMarks - marksScored;
+
+            const ctx = document.getElementById('scoreChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Marks Scored', 'Marks Missed'],
+                    datasets: [{
+                        data: [marksScored, marksMissed],
+                        backgroundColor: [
+                            '#10b981', 
+                            '#ef4444'  
+                        ],
+                        borderColor: [
+                            '#ffffff',
+                            '#ffffff'
+                        ],
+                        borderWidth: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.raw}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const tabs = document.querySelectorAll('.tab-btn');
+            const panes = document.querySelectorAll('.tab-pane');
+
+            tabs.forEach((tab, index) => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    panes.forEach(pane => pane.classList.add('hidden'));
+                    document.getElementById(tab.dataset.target).classList.remove('hidden');
+                });
+            });
+
+            tabs[0].click();
+
+            const questionCards = document.querySelectorAll('.question-card');
+            questionCards.forEach(card => {
+                const header = card.querySelector('.question-card-header');
+                header.addEventListener('click', () => {
+                    card.classList.toggle('open');
+                });
+            });
+
+        });
+    </script>
+
+</body>
+</html>
