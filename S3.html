@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>পদার্থবিদ্যা মূল্যায়ন রিপোর্ট - রিয়া</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Apply Bengali font first, then fallback to Inter */
+        body {
+            font-family: 'Noto Sans Bengali', 'Inter', sans-serif;
+        }
+        /* Custom styles for the donut chart */
+        .donut-chart-text {
+            font-size: 1.5rem; /* 24px */
+            line-height: 2rem; /* 32px */
+            font-weight: 700;
+        }
+        /* Hide the default summary marker */
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-4 md:p-8">
+
+    <main class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+        
+        <header class="bg-gradient-to-r from-indigo-600 to-purple-700 text-white p-6 md:p-8">
+            <h1 class="text-3xl md:text-4xl font-bold">পদার্থবিদ্যা মূল্যায়ন রিপোর্ট</h1>
+            <p class="text-xl font-medium mt-2">ছাত্রীর নাম: রিয়া</p>
+            <p class="text-lg opacity-90 mt-1">অধ্যায়: আলোর প্রতিফলন (গোলীয় দর্পণ)</p>
+        </header>
+
+        <section class="p-6 md:p-8 flex flex-col md:flex-row items-center justify-between border-b">
+            <div class="text-center md:text-left mb-6 md:mb-0">
+                <p class="text-lg text-gray-600">মোট প্রাপ্ত নম্বর</p>
+                <div class="text-6xl md:text-7xl font-bold text-indigo-600 my-2">
+                    22<span class="text-4xl text-gray-500 font-medium">/24</span>
+                </div>
+                <div class="text-2xl font-semibold text-green-600">গ্রেড: A (চমৎকার)</div>
+            </div>
+            
+            <div class="relative w-36 h-36 md:w-40 md:h-40">
+                <svg class="w-full h-full" viewBox="0 0 36 36">
+                    <path d="M18 2.0845
+                             a 15.9155 15.9155 0 0 1 0 31.831
+                             a 15.9155 15.9155 0 0 1 0 -31.831"
+                          fill="none"
+                          stroke="#e6e6e6"
+                          stroke-width="3.8" />
+                    <path class="text-indigo-600"
+                          d="M18 2.0845
+                             a 15.9155 15.9155 0 0 1 0 31.831
+                             a 15.9155 15.9155 0 0 1 0 -31.831"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="4"
+                          stroke-dasharray="88, 100"
+                          stroke-linecap="round" />
+                </svg>
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <span class="donut-chart-text text-indigo-600">91.67%</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="p-6 md:p-8 border-b">
+            <h2 class="text-2xl font-semibold mb-5 text-gray-800">বিভাগ-ভিত্তিক ফলাফল</h2>
+            <div class="space-y-4">
+                
+                <div class="flex items-center justify-between gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="text-sm font-medium text-gray-500">বিভাগ - ক (অতি-সংক্ষিপ্ত)</div>
+                        <div class="text-lg font-bold text-gray-900">৫ / ৫</div>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div class="bg-green-500 h-2.5 rounded-full" style="width: 100%"></div>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="text-sm font-medium text-gray-500">বিভাগ - খ (সংক্ষিপ্ত I)</div>
+                        <div class="text-lg font-bold text-gray-900">৮ / ৮</div>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div class="bg-green-500 h-2.5 rounded-full" style="width: 100%"></div>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="text-sm font-medium text-gray-500">বিভাগ - গ (সংক্ষিপ্ত II)</div>
+                        <div class="text-lg font-bold text-gray-900">৬ / ৬</div>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div class="bg-green-500 h-2.5 rounded-full" style="width: 100%"></div>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="text-sm font-medium text-gray-500">বিভাগ - ঘ (দীর্ঘ)</div>
+                        <div class="text-lg font-bold text-gray-900">৩ / ৫</div>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div class="bg-yellow-500 h-2.5 rounded-full" style="width: 60%"></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="p-6 md:p-8 border-b">
+            <h2 class="text-2xl font-semibold mb-5 text-gray-800">শিক্ষকের সামগ্রিক মন্তব্য</h2>
+            
+            <div class="flex gap-4 bg-green-50 bg-opacity-70 p-4 rounded-lg border border-green-200">
+                <div class="flex-shrink-0">
+                    <svg class="w-6 h-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-green-800">সবথেকে শক্তিশালী দিক</h3>
+                    <ul class="list-disc list-inside text-green-700 mt-2 space-y-1">
+                        <li>তোমার সংজ্ঞা এবং প্রাথমিক ধারণা খুব স্পষ্ট।</li>
+                        <li>রশ্মিচিত্র আঁকার হাত ভালো, বিশেষ করে Q17 (অসদ্ বিম্ব) খুব ভালো এঁকেছ।</li>
+                        <li>গাণিতিক সমস্যা (Q10) এবং চিহ্ন প্রথার (Q14) প্রয়োগে তোমার দখল খুব ভালো।</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex gap-4 bg-red-50 bg-opacity-70 p-4 rounded-lg border border-red-200 mt-4">
+                <div class="flex-shrink-0">
+                    <svg class="w-6 h-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-red-800">যেখানে উন্নতি প্রয়োজন</h3>
+                    <ul class="list-disc list-inside text-red-700 mt-2 space-y-1">
+                        <li><strong>প্রশ্ন সম্পূর্ণ পড়া:</strong> Q19-এ 'বিভিন্ন অবস্থান' উল্লেখ না করায় উত্তর অসম্পূর্ণ হয়েছে। প্রশ্ন মনোযোগ দিয়ে পড়া অভ্যাস করো।</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="p-6 md:p-8">
+            <h2 class="text-2xl font-semibold mb-5 text-gray-800">প্রশ্নভিত্তিক বিস্তারিত বিশ্লেষণ</h2>
+            <div class="space-y-3">
+
+                <details class="group border rounded-lg shadow-sm overflow-hidden">
+                    <summary class="flex justify-between items-center p-4 cursor-pointer group-hover:bg-gray-50">
+                        <div class="font-semibold text-gray-800">বিভাগ - ক (প্রশ্ন ১, ২, ৩, ৫, ৬, ৭)</div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm font-bold text-green-700">৫/৫</span>
+                            <span class="text-sm font-medium text-green-700 bg-green-100 px-2 py-0.5 rounded-full">সঠিক</span>
+                            <svg class="w-5 h-5 text-gray-500 transform transition-transform duration-200 group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </div>
+                    </summary>
+                    <div class="p-4 bg-gray-50 border-t rounded-b-lg space-y-2">
+                        <p class="text-gray-700"><strong>প্রশ্ন ১ (১/১):</strong> <span class="text-sm font-medium text-green-700 bg-green-100 px-2 py-0.5 rounded-full">সঠিক</span> সংজ্ঞা সঠিক।</p>
+                        <p class="text-gray-700"><strong>প্রশ্ন ২ (১/১):</strong> <span class="text-sm font-medium text-green-700 bg-green-100 px-2 py-0.5 rounded-full">সঠিক</span> সূত্রটি সঠিক।</p>
+                        <p class="text-gray-700"><strong>প্রশ্ন ৩ (১/১):</strong> <span class="text-sm font-medium text-green-700 bg-green-100 px-2 py-0.5 rounded-full">সঠিক</span> উত্তর সঠিক।</p>
+                        <p class="text-gray-700"><strong>প্রশ্ন ৫ (১/১):</strong> <span class="text-sm font-medium text-green-700 bg-green-100 px-2 py-0.5 rounded-full">সঠিক</span> পার্থক্য সঠিকভাবে লেখা হয়েছে।</p>
+                        <p class="text-gray-700"><strong>প্রশ্ন ৬ (১/১):</strong> <span class="text-sm font-medium text-green-700 bg-green-100 px-2 py-0.5 rounded-full">সঠিক</span> দুটি সূত্রই সঠিক।</p>
+                        <p class="text-gray-700"><strong>প্রশ্ন ৭ (অতিরিক্ত) (১/১):</strong> <span class="text-sm font-medium text-green-700 bg-green-100 px-2 py-0.5 rounded-full">সঠিক</span> উত্তর সঠিক।</bu>
+                    </div>
+                </details>
+
+                <details class="group border rounded-lg shadow-sm overflow-hidden">
+                    <summary class="flex justify-between items-center p-4 cursor-pointer group-hover:bg-gray-50">
+                        <div class="font-semibold text-gray-800">বিভাগ - খ (প্রশ্ন ৯, ১০, ১১, ১২, ১৩)</div>
+                        <div class="flex items-center gap-2">
+                                <span class="text-sm font-bold text-green-700">৮/৮</span>
+                                <span class="text-sm font-medium text-green-700 bg-green-100 px-2 py-0.5 rounded-full">সঠিক</span>
+                            <svg class="w-5 h-5 text-gray-500 transform transition-transform duration-200 group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </div>
+                    </summary>
+                    <div class="p-4 bg-gray-50 border-t rounded-b-lg space-y-3 divide-y divide-gray-200">
+                        <p class="text-gray-700 pt-2"><strong>প্রশ্ন ৯ (২/২):</strong> <span class="text-sm font-medium text-green-700 bg-green-100 px-2 py-0.5 rounded-full">সঠিক</span> সম্পর্কটি উল্লেখ করা সঠিক হয়েছে।</p>
+                        <p class="text-gray-700 pt-3"><strong>প্রশ্ন ১০ (২/২):</strong> <span class="text-sm font-medium text-green-700 bg-green-100 px-2 py-0.5 rounded-full">সঠিক</span> $f = -12$ সেমি। উত্তর সঠিক হয়েছে।</p>
+                        <p class="text-gray-700 pt-3"><strong>প্রশ্ন ১১ (২/২):</strong> <span class="text-sm font-medium text-green-700 bg-green-100 px-2 py-0.5 rounded-full">সঠিক</span> সংজ্ঞা সঠিক।</p>
+                        <p class="text-gray-700 pt-3"><strong>প্রশ্ন ১২ (২/২):</strong> <span class="text-sm font-medium text-green-700 bg-green-100 px-2 py-0.5 rounded-full">সঠিক</span> চিত্রসহ ব্যাখ্যা সঠিকভাবে করা হয়েছে।</p>
+                         <p class="text-gray-700 pt-3"><strong>প্রশ্ন ১৩ (অতিরিক্ত) (২/২):</strong> <span class="text-sm font-medium text-green-700 bg-green-100 px-2 py-0.5 rounded-full">সঠিক</span> নিয়মগুলি ঠিকঠাক লেখা হয়েছে।</p>
+                    </div>
+                </details>
+
+                <details class="group border rounded-lg shadow-sm overflow-hidden">
+                    <summary class="flex justify-between items-center p-4 cursor-pointer group-hover:bg-gray-50">
+                        <div class="font-semibold text-gray-800">বিভাগ - গ (প্রশ্ন ১৪, ১৭)</div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm font-bold text-green-700">৬/৬</span>
+                             <span class="text-sm font-medium text-green-700 bg-green-100 px-2 py-0.5 rounded-full">সঠিক</span>
+                            <svg class="w-5 h-5 text-gray-500 transform transition-transform duration-200 group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </div>
+                    </summary>
+                    <div class="p-4 bg-gray-50 border-t rounded-b-lg space-y-3 divide-y divide-gray-200">
+                        <p class="text-gray-700 pt-2"><strong>প্রশ্ন ১৪ (৩/৩):</strong> <span class="text-sm font-medium text-green-700 bg-green-100 px-2 py-0.5 rounded-full">চমৎকার</span> বিবর্ধনের প্রতিপাদন এবং চিহ্ন প্রথার প্রয়োগ সম্পূর্ণ নির্ভুল। খুব ভালো!</p>
+                        <p class="text-gray-700 pt-3"><strong>প্রশ্ন ১৭ (৩/৩):</strong> <span class="text-sm font-medium text-green-700 bg-green-100 px-2 py-0.5 rounded-full">চমৎকার</span> অবতল দর্পণে অসদ্ বিম্ব গঠনের রশ্মিচিত্রটি একদম নিখুঁত হয়েছে।</Services>
+                    </div>
+                </details>
+
+                <details class="group border rounded-lg shadow-sm overflow-hidden">
+                    <summary class="flex justify-between items-center p-4 cursor-pointer group-hover:bg-gray-50">
+                        <div class="font-semibold text-gray-800">বিভাগ - ঘ (প্রশ্ন ১৯)</div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm font-bold text-yellow-700">৩/৫</span>
+                            <span class="text-sm font-medium text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">আংশিক সঠিক</span>
+                            <svg class="w-5 h-5 text-gray-500 transform transition-transform duration-200 group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </div>
+                    </summary>
+                    <div class="p-4 bg-gray-50 border-t rounded-b-lg space-y-3 divide-y divide-gray-200">
+                        <p class="text-gray-700 pt-3"><strong>প্রশ্ন ১৯ (৩/৫):</strong> <span class="text-sm font-medium text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">অসম্পূর্ণ</span> প্রশ্নে 'বিভিন্ন অবস্থানে' প্রতিবিম্ব আঁকতে বলা হলেও তা করা হয়নি (শুধু C-তে আঁকা হয়েছে)। তবে, দর্পণের 'ব্যবহার' দুটি সঠিকভাবে লেখা হয়েছে।</p>
+                    </div>
+                </details>
+
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
